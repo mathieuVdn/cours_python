@@ -1,0 +1,58 @@
+WidgetsExample:
+
+<WidgetsExample>:
+    cols: 3
+    ToggleButton:
+        text: "Off"
+        on_state: root.on_toggle_button_state(self)
+        size_hint: None, 1
+        width:"100dp"
+    GridLayout:
+        rows : 2
+        Button:
+            text: "Ajouter"
+            on_press: root.on_button_click()
+            disabled: not root.active_count
+
+        Button:
+            text: "Reset"
+            on_press: root.reset_count()
+            disabled: not root.active_count
+    Label:
+        text: root.mon_text
+        font_name: "fonts/Lcd.ttf"
+        font_size: "80dp"
+
+    Switch:
+        id : switch
+        on_active : root.on_switch_active(self)
+        size_hint: None, 1
+        width:"100dp"
+        active: True
+
+    Slider:
+        id: slider
+        min:0
+        max : 100
+        value: 50
+        #  on_value : root.on_slider_value(self)
+        orientation: "vertical"
+        disabled : not switch.active
+    BoxLayout:
+        Label :
+            text: str(int(slider.value))
+        ProgressBar:
+            max: 100
+            value: slider.value
+            margin: (0, 0, "20dp",0)
+
+    TextInput:
+        id: textinput
+        hint_text: "Entrez votre texte ..."
+        size_hint: None, 1
+        width:"100dp"
+        multiline : False
+        on_text_validate: root.on_text_validate(self)
+
+    Label :
+        text: f"Votre texte : {root.text_input_value}"
